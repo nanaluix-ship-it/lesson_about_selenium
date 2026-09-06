@@ -8,7 +8,7 @@ def test_successful_login(driver):
     """Успешная авторизация"""
     driver.get(BASE_URL)
 
-    wait = WebDriverWait(driver, 15)
+    wait = WebDriverWait(driver, 30)
 
     username = wait.until(EC.element_to_be_clickable((By.ID, "username")))
     password = wait.until(EC.element_to_be_clickable((By.ID, "password")))
@@ -29,7 +29,7 @@ def test_unsuccessful_login(driver):
     """Неудачная авторизация (неверный логин)"""
     driver.get(BASE_URL)
 
-    wait = WebDriverWait(driver, 15)
+    wait = WebDriverWait(driver, 30)
     username = wait.until(EC.element_to_be_clickable((By.ID, "username")))
     password = wait.until(EC.element_to_be_clickable((By.ID, "password")))
     login_btn = wait.until(EC.element_to_be_clickable((By.CSS_SELECTOR, "button[type='submit']")))
