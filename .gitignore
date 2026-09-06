@@ -1,0 +1,19 @@
+# Виртуальное окружение Python
+.venv/
+venv/
+env/
+
+# Кэш pytest
+.pytest_cache/
+
+# Файлы IDE (PyCharm / Giga IDE)
+.idea/
+*.iml
+
+# Кэш Python
+__pycache__/
+*.pyc
+
+# Операционная система
+.DS_Store
+Thumbs.db
