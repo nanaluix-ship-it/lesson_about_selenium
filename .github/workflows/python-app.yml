@@ -32,7 +32,7 @@ jobs:
       - name: Run pytest with Allure
         run: pytest -v --alluredir=allure-results
 
-      - name: Upload allure-results artifact (для отладки)
+      - name: Upload allure-results artifact
         uses: actions/upload-artifact@v4
         if: always()
         with:
@@ -45,7 +45,7 @@ jobs:
     if: always()
 
     steps:
-      - name: Checkout code
+      - name: Checkout code (нужен для настройки Pages)
         uses: actions/checkout@v4
 
       - name: Download allure-results
@@ -54,17 +54,27 @@ jobs:
           name: allure-results
           path: allure-results/
 
-      # Allure — это Java-инструмент, ставим Java и Allure CLI
+      # Ставим Java (Allure требует Java)
       - name: Setup Java
         uses: actions/setup-java@v4
         with:
           java-version: '17'
           distribution: 'temurin'
 
-      - name: Setup Allure Commandline
-        uses: dsaltares/setup-allure@v1
-        with:
-          version: '2.20.0'
+      # Скачиваем Allure CLI вручную — самый надёжный вариант
+      - name: Download Allure CLI
+        run: |
+          ALLURE_VERSION="2.20.0"
+          ARCHIVE_NAME="allure-${ALLURE_VERSION}.tgz"
+          DOWNLOAD_URL="https://github.com/allure-framework/allure2/releases/download/${ALLURE_VERSION}/${ARCHIVE_NAME}"
+          
+          curl -L -o ${ARCHIVE_NAME} ${DOWNLOAD_URL}
+          tar -xzf ${ARCHIVE_NAME}
+          mv allure-${ALLURE_VERSION} allure
+          echo "${GITHUB_WORKSPACE}/allure/bin" >> $GITHUB_PATH
+
+      - name: Verify Allure
+        run: allure --version
 
       - name: Generate Allure report
         run: allure generate allure-results -o allure-report --clean
