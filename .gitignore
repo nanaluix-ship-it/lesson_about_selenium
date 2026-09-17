@@ -8,6 +8,7 @@ env/
 
 # Файлы IDE (PyCharm / Giga IDE)
 .idea/
+.gigaide
 *.iml
 
 # Кэш Python
