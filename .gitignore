@@ -18,3 +18,7 @@ __pycache__/
 # Операционная система
 .DS_Store
 Thumbs.db
+
+# Allure
+allure-results/
+allure-report/

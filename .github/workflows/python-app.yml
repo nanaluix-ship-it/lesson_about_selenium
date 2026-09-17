@@ -32,7 +32,7 @@ jobs:
       - name: Run pytest with Allure
         run: pytest -v --alluredir=allure-results
 
-      - name: Upload allure-results artifact
+      - name: Upload allure-results artifact (для отладки)
         uses: actions/upload-artifact@v4
         if: always()
         with:
@@ -45,17 +45,29 @@ jobs:
     if: always()
 
     steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
       - name: Download allure-results
         uses: actions/download-artifact@v4
         with:
           name: allure-results
           path: allure-results/
 
-      - name: Generate Allure report
-        uses: vasylenko/allure-report-creator-action@v1.0.0
+      # Allure — это Java-инструмент, ставим Java и Allure CLI
+      - name: Setup Java
+        uses: actions/setup-java@v4
         with:
-          allure-results: allure-results
-          allure-report: allure-report
+          java-version: '17'
+          distribution: 'temurin'
+
+      - name: Setup Allure Commandline
+        uses: dsaltares/setup-allure@v1
+        with:
+          version: '2.20.0'
+
+      - name: Generate Allure report
+        run: allure generate allure-results -o allure-report --clean
 
       - name: Setup Pages
         uses: actions/configure-pages@v5
