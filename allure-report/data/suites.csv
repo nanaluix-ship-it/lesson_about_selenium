@@ -1,3 +1,0 @@
-"DESCRIPTION","DURATION IN MS","NAME","PARENT SUITE","START TIME","STATUS","STOP TIME","SUB SUITE","SUITE","TEST CLASS","TEST METHOD"
-"Авторизация с невалидными данными на сайте https://the-internet.herokuapp.com/login","6076","Тест неудачной авторизации","tests","2026-09-17","passed","2026-09-17","","test_form","",""
-"Авторизация с валидными данными на сайте https://the-internet.herokuapp.com/login","6475","Тест авторизации","tests","2026-09-17","passed","2026-09-17","","test_form","",""
